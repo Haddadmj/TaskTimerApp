@@ -6,9 +6,10 @@ data class Task(
     val _taskName: String,
     val taskDescription: String,
     val timestamp: Timestamp,
-    val totalTime: Int
+    var totalTime: Long,
+    var totalTimeSt: String
 ) {
     constructor() : this(
-        "", "", Timestamp.now(), 0
+        "", "", Timestamp.now(), 0,"00:00"
     )
 }

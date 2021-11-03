@@ -9,16 +9,25 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cvTask"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         app:cardCornerRadius="16dp"
         app:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/tvTaskName"
+        <LinearLayout
+            android:id="@+id/llCard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:lines="1"
-            android:text="TextView" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTaskName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:lines="1"
+                android:text="TextView" />
+
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

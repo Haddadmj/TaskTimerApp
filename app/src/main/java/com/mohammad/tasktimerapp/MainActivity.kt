@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         viewTasksView = findViewById(R.id.viewTaskView)
         viewTasksView.setOnClickListener {
             startActivity(Intent(this, ViewTasks::class.java))
-            finish()
         }
     }
 }

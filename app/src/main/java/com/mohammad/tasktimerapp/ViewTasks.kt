@@ -11,7 +11,7 @@ import com.google.firebase.ktx.Firebase
 
 class ViewTasks : AppCompatActivity() {
     lateinit var mainRV: RecyclerView
-    val db = Firebase.firestore
+    private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_tasks)
@@ -20,12 +20,23 @@ class ViewTasks : AppCompatActivity() {
     }
 
     private fun updateRV(list: List<Task>) {
-        mainRV.adapter = RVAdapter(list)
+        mainRV.adapter = RVAdapter(list, this)
         mainRV.layoutManager = LinearLayoutManager(this)
     }
 
+    fun update(task:Task){
+        db.collection("Tasks")
+            .get()
+            .addOnSuccessListener {
+                for (document in it)
+                    if (document.data["timestamp"] == task.timestamp)
+                        db.collection("Tasks").document(document.id).update("totalTime",task.totalTime,"totalTimeSt",task.totalTimeSt)
+            }
+            .addOnFailureListener {  }
+    }
 
-    fun getData(){
+
+    private fun getData(){
         db.collection("Tasks")
             .orderBy("timestamp", Query.Direction.ASCENDING)
             .get()

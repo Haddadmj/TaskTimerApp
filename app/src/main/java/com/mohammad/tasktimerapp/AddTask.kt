@@ -33,7 +33,8 @@ class AddTask : AppCompatActivity() {
                         hashMapOf(
                             "_taskName" to etTaskName.text.toString(),
                             "taskDescription" to etTaskDescription.text.toString(),
-                            "totalTime" to 0,
+                            "totalTime" to 0L,
+                            "totalTimeSt" to "00:00",
                             "timestamp" to FieldValue.serverTimestamp()
 
                         )
