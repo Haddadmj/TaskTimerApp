@@ -4,7 +4,7 @@ In this Repo You will find a full application where you can as user add tasks, v
 
 ## Screenshot
 
-<img src="https://www.dropbox.com/s/ngr6st1c2ilekxs/1.png">
+<img src="https://www.dropbox.com/s/ngr6st1c2ilekxs/1.png" height="450" alt="image01">
 <img src="https://www.dropbox.com/s/yev673dbao4y618/2.png">
 
 ## Work Distribution:
