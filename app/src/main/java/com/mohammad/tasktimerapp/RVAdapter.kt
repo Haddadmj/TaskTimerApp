@@ -3,7 +3,6 @@ package com.mohammad.tasktimerapp
 import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Chronometer
 import androidx.core.view.isVisible
@@ -14,7 +13,7 @@ class RVAdapter(private val list: List<Task>, private val activity: ViewTasks) :
     RecyclerView.Adapter<RVAdapter.ViewHolder>() {
 
     private var runningTask: Chronometer? = null
-    private var running = false
+    private var oldTask: Task? = null
 
     class ViewHolder(val binding: TaskRowBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -33,31 +32,61 @@ class RVAdapter(private val list: List<Task>, private val activity: ViewTasks) :
 
         val countDownTimer = Chronometer(holder.itemView.context)
         countDownTimer.isVisible = false
+        countDownTimer.gravity = 17
         holder.binding.apply {
+            var running = false
             tvTaskName.text = task._taskName
+            Log.d("Timer", "onBindViewHolder: ${tvTaskName.gravity}")
             llCard.addView(countDownTimer)
             cvTask.setOnClickListener {
+                running = !running
+                countDownTimer.isVisible = true
 
-                if (!running && runningTask == null) {
-                    countDownTimer.isVisible = true
-                    countDownTimer.base = SystemClock.elapsedRealtime() - task.totalTime
-                    countDownTimer.start()
+                if (runningTask == null) {
+                    startStopSelf(running, countDownTimer, task)
                     runningTask = countDownTimer
-                    running = true
+                    oldTask = task
 
                 } else {
-                    runningTask?.stop()
-                    countDownTimer.isVisible =true
-                    countDownTimer.base = SystemClock.elapsedRealtime() - task.totalTime
-                    countDownTimer.start()
-                    runningTask = countDownTimer
-                    Log.d("Timer", "runningTask: ${runningTask?.text} ")
+                    if (runningTask == countDownTimer) {
+                        startStopSelf(running, countDownTimer, task)
+                    } else {
+                        startStopB(countDownTimer, task)
+                    }
                 }
             }
         }
     }
 
+    private fun startStopB(
+        countDownTimer: Chronometer,
+        task: Task
+    ) {
+        runningTask?.stop()
+        oldTask!!.totalTime = SystemClock.elapsedRealtime() - runningTask!!.base
+        oldTask!!.totalTimeSt = runningTask!!.text.toString()
+        activity.update(oldTask!!)
+        countDownTimer.base = SystemClock.elapsedRealtime() - task.totalTime
+        countDownTimer.start()
+        oldTask = task
+        runningTask = countDownTimer
+    }
+
+    private fun startStopSelf(
+        running: Boolean,
+        countDownTimer: Chronometer,
+        task: Task
+    ) {
+        if (running) {
+            countDownTimer.base = SystemClock.elapsedRealtime() - task.totalTime
+            countDownTimer.start()
+        } else {
+            countDownTimer.stop()
+            task.totalTime = SystemClock.elapsedRealtime() - countDownTimer.base
+            task.totalTimeSt = countDownTimer.text.toString()
+            activity.update(task)
+        }
+    }
 
     override fun getItemCount(): Int = list.size
-
 }

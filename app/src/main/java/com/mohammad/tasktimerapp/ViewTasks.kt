@@ -1,7 +1,10 @@
 package com.mohammad.tasktimerapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +20,21 @@ class ViewTasks : AppCompatActivity() {
         setContentView(R.layout.activity_view_tasks)
         mainRV = findViewById(R.id.rvMain)
         getData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.signle_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.showTasks -> {
+                startActivity(Intent(this,SummaryTasks::class.java))
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun updateRV(list: List<Task>) {
