@@ -29,7 +29,7 @@ class RVAdapte(private val list: List<Task>) : RecyclerView.Adapter<RVAdapte.Vie
         countDownTimer.text = task.totalTimeSt
         holder.binding.apply {
             var running = false
-            tvTaskName.text = task._taskName
+            tvTaskName.text = "${task._taskName}\n${task.taskDescription}"
             Log.d("Timer", "onBindViewHolder: ${tvTaskName.gravity}")
             llCard.addView(countDownTimer)
         }

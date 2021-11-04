@@ -35,7 +35,7 @@ class RVAdapter(private val list: List<Task>, private val activity: ViewTasks) :
         countDownTimer.gravity = 17
         holder.binding.apply {
             var running = false
-            tvTaskName.text = task._taskName
+            tvTaskName.text = "${task._taskName} : ${task.taskDescription}"
             Log.d("Timer", "onBindViewHolder: ${tvTaskName.gravity}")
             llCard.addView(countDownTimer)
             cvTask.setOnClickListener {

@@ -4,54 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:background="@drawable/bg_add"
     tools:context=".AddTask">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/etTaskName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:ems="10"
+        android:hint="Task Name"
+        android:shadowRadius="5"
+        android:shadowColor="#BBB0EE"
+        android:background="@drawable/etshape"
+        android:textAlignment="center"
+        android:inputType="textCapWords"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Task Name" />
+    <EditText
+        android:id="@+id/etTaskDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/etshape"
+        android:shadowRadius="5"
+        android:shadowColor="#BBB0EE"
+        android:textAlignment="center"
+        android:hint="Task Description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTaskName"
+        app:layout_constraintVertical_bias="0.128" />
 
-        <EditText
-            android:id="@+id/etTaskName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Task Name"
-            android:inputType="textCapWords" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addTaskBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="Add Task"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTaskDescription"
+        app:layout_constraintVertical_bias="0.359" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Task Description" />
-
-        <EditText
-            android:id="@+id/etTaskDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textCapWords"
-            android:hint="Enter Task Description" />
-
-        <Button
-            android:id="@+id/addTaskBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="16dp"
-            android:text="Add Task" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
