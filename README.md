@@ -6,8 +6,6 @@ In this Repo You will find a full application where you can as user add tasks, v
 
 <img src="1.png" height="450" alt="image01">
 <img src="2.png" height="450" alt="image02">
-<img src="3.png" height="450" alt="image03">
-<img src="4.png" height="450" alt="image04">
 <img src="5.png" height="450" alt="image05">
 <img src="6.png" height="450" alt="image06">
 
