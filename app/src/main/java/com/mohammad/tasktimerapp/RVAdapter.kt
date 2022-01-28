@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Chronometer
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.mohammad.tasktimerapp.Database.Task
 import com.mohammad.tasktimerapp.databinding.TaskRowBinding
 
 class RVAdapter(private val list: List<Task>, private val activity: ViewTasks) :
@@ -35,8 +36,7 @@ class RVAdapter(private val list: List<Task>, private val activity: ViewTasks) :
         countDownTimer.gravity = 17
         holder.binding.apply {
             var running = false
-            tvTaskName.text = "${task._taskName} : ${task.taskDescription}"
-            Log.d("Timer", "onBindViewHolder: ${tvTaskName.gravity}")
+            tvTaskName.text = "${task.name} : ${task.description}"
             llCard.addView(countDownTimer)
             cvTask.setOnClickListener {
                 running = !running
@@ -63,10 +63,10 @@ class RVAdapter(private val list: List<Task>, private val activity: ViewTasks) :
         task: Task
     ) {
         runningTask?.stop()
-        oldTask!!.totalTime = SystemClock.elapsedRealtime() - runningTask!!.base
-        oldTask!!.totalTimeSt = runningTask!!.text.toString()
+        oldTask!!.pauseOff = SystemClock.elapsedRealtime() - runningTask!!.base
+        oldTask!!.stringTime = runningTask!!.text.toString()
         activity.update(oldTask!!)
-        countDownTimer.base = SystemClock.elapsedRealtime() - task.totalTime
+        countDownTimer.base = SystemClock.elapsedRealtime() - task.pauseOff
         countDownTimer.start()
         oldTask = task
         runningTask = countDownTimer
@@ -78,12 +78,12 @@ class RVAdapter(private val list: List<Task>, private val activity: ViewTasks) :
         task: Task
     ) {
         if (running) {
-            countDownTimer.base = SystemClock.elapsedRealtime() - task.totalTime
+            countDownTimer.base = SystemClock.elapsedRealtime() - task.pauseOff
             countDownTimer.start()
         } else {
             countDownTimer.stop()
-            task.totalTime = SystemClock.elapsedRealtime() - countDownTimer.base
-            task.totalTimeSt = countDownTimer.text.toString()
+            task.pauseOff = SystemClock.elapsedRealtime() - countDownTimer.base
+            task.stringTime = countDownTimer.text.toString()
             activity.update(task)
         }
     }

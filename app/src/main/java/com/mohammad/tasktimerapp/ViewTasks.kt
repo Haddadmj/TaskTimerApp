@@ -2,24 +2,27 @@ package com.mohammad.tasktimerapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.mohammad.tasktimerapp.Database.Task
+import com.mohammad.tasktimerapp.Database.TaskDao
+import com.mohammad.tasktimerapp.Database.TaskDatabase
 
 class ViewTasks : AppCompatActivity() {
     lateinit var mainRV: RecyclerView
-    private val db = Firebase.firestore
+    lateinit var taskDao: TaskDao
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_tasks)
+
+        taskDao = TaskDatabase.getDatabase(this).taskDao()
+
         mainRV = findViewById(R.id.rvMain)
-        getData()
+        updateRV(taskDao.getAllTasks())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,26 +46,6 @@ class ViewTasks : AppCompatActivity() {
     }
 
     fun update(task:Task){
-        db.collection("Tasks")
-            .get()
-            .addOnSuccessListener {
-                for (document in it)
-                    if (document.data["timestamp"] == task.timestamp)
-                        db.collection("Tasks").document(document.id).update("totalTime",task.totalTime,"totalTimeSt",task.totalTimeSt)
-            }
-            .addOnFailureListener {  }
-    }
-
-
-    private fun getData(){
-        db.collection("Tasks")
-            .orderBy("timestamp", Query.Direction.ASCENDING)
-            .get()
-            .addOnSuccessListener {
-                updateRV(it.toObjects(Task::class.java))
-            }
-            .addOnFailureListener {
-                Log.d("Firebase", "Failed to get data")
-            }
+        taskDao.updateTask(task)
     }
 }

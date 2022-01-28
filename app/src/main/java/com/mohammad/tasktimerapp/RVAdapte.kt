@@ -4,8 +4,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Chronometer
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.mohammad.tasktimerapp.Database.Task
 import com.mohammad.tasktimerapp.databinding.TaskRowBinding
 
 class RVAdapte(private val list: List<Task>) : RecyclerView.Adapter<RVAdapte.ViewHolder>() {
@@ -26,11 +26,9 @@ class RVAdapte(private val list: List<Task>) : RecyclerView.Adapter<RVAdapte.Vie
 
         val countDownTimer = Chronometer(holder.itemView.context)
         countDownTimer.gravity = 17
-        countDownTimer.text = task.totalTimeSt
+        countDownTimer.text = task.stringTime
         holder.binding.apply {
-            var running = false
-            tvTaskName.text = "${task._taskName}\n${task.taskDescription}"
-            Log.d("Timer", "onBindViewHolder: ${tvTaskName.gravity}")
+            tvTaskName.text = "${task.name}\n${task.description}"
             llCard.addView(countDownTimer)
         }
     }

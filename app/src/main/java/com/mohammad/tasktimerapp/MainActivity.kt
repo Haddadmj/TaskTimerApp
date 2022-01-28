@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var addTaskView: Button
-    lateinit var viewTasksView: Button
+    private lateinit var addTaskView: Button
+    private lateinit var viewTasksView: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportActionBar?.hide()
 
         addTaskView = findViewById(R.id.addTaskView)
         addTaskView.setOnClickListener {
